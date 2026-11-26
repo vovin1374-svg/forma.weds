@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Forma.webs — креативна веброзробка та цифрові враження</title>
+<meta name="description" content="Портфоліо креативного розробника: веброзробка, ШІ-візуали, моушн і цифрові враження.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0d10;--bg2:#14161b;--fg:#fff;--mute:#9aa0ab;--blue:#2563EB;--line:rgba(255,255,255,.12);--glass:rgba(255,255,255,.05);--d:'Unbounded','Arial Black',sans-serif;--b:'Manrope',system-ui,sans-serif;--px:clamp(1.1rem,5vw,4rem);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px);overflow-x:clip}
+body{background:var(--bg);color:var(--fg);font:400 1rem/1.6 var(--b);overflow-x:clip;max-width:100%}
+[hidden]{display:none!important}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.skip{position:absolute;left:-999px}.skip:focus{left:1rem;top:1rem;background:var(--blue);padding:.5rem 1rem;z-index:99}
+h1,h2,h3{font-family:var(--d);font-weight:800;line-height:1.05;letter-spacing:-.02em;text-transform:uppercase;overflow-wrap:break-word;hyphens:manual;text-wrap:balance;min-width:0}p{text-wrap:pretty}html.lock{overflow:hidden}
+h2{font-size:clamp(1.35rem,4.8vw,4.4rem)}
+section{padding:clamp(5rem,11vw,9rem) var(--px);position:relative;max-width:100%}
+.mute{color:var(--mute)}
+.sm{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}p.sm{margin-bottom:1rem}.meta .sm{display:block}
+#load{position:fixed;inset:0;background:var(--bg);z-index:100;display:grid;place-items:center}
+#load b{font:800 clamp(1.6rem,8vw,5rem)/1 var(--d)}#load i{position:absolute;left:0;bottom:0;height:3px;background:var(--blue);width:0}
+#cur{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:90;transition:width .25s,height .25s,margin .25s}
+#cur.big{width:70px;height:70px;margin:-35px}@media(hover:none){#cur{display:none}}
+/* nav */
+nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;display:flex;align-items:center;gap:1rem;padding:1rem var(--px);z-index:60}nav::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);background:linear-gradient(rgba(12,13,16,.85),transparent)}
+nav .logo{font:800 1rem var(--d);margin-right:auto}
+#links{display:flex;gap:1.6rem;font-size:.85rem}
+#links a{position:relative;padding:.3rem 0}#links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+#links a:hover::after,#links a[aria-current]::after{transform:scaleX(1)}
+.lang{display:flex;border:1px solid var(--line);border-radius:99px;overflow:hidden}.lang button{background:none;border:0;color:var(--mute);font:700 .75rem var(--b);padding:.4rem .7rem;cursor:pointer}.lang button[aria-pressed=true]{background:var(--blue);color:#fff}
+#burger{display:none;align-items:center;gap:.5rem;background:var(--glass);border:1px solid var(--line);color:#fff;border-radius:99px;padding:.45rem .9rem;min-height:36px;font:700 .75rem var(--b);cursor:pointer}
+#burger .ic{position:relative;width:14px;height:10px;flex:none}#burger .ic::before,#burger .ic::after{content:"";position:absolute;left:0;right:0;height:2px;background:#fff;border-radius:2px;transition:transform .35s,top .35s}#burger .ic::before{top:0}#burger .ic::after{top:8px}
+#burger[aria-expanded=true] .ic::before{top:4px;transform:rotate(45deg)}#burger[aria-expanded=true] .ic::after{top:4px;transform:rotate(-45deg)}#burger .bc,#burger[aria-expanded=true] .bm{display:none}#burger[aria-expanded=true] .bc{display:inline}
+#menu{position:fixed;inset:0;z-index:55;visibility:hidden;opacity:0;background:rgba(6,7,9,.7);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:opacity .35s,visibility 0s .35s}#menu.open{visibility:visible;opacity:1;transition:opacity .35s,visibility 0s}
+.mpanel{position:absolute;top:0;right:0;bottom:0;width:min(88vw,420px);max-width:100%;background:var(--bg2);border-left:1px solid var(--line);padding:6rem 1.6rem 2rem;display:flex;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;transform:translateX(100%);transition:transform .45s cubic-bezier(.7,0,.2,1)}#menu.open .mpanel{transform:none}
+.mpanel a{font:800 clamp(1rem,4.6vw,1.3rem) var(--d);text-transform:uppercase;padding:.9rem 0;border-bottom:1px solid var(--line);opacity:0;transform:translateX(24px);transition:opacity .4s,transform .4s,color .3s}#menu.open .mpanel a{opacity:1;transform:none;transition-delay:calc(var(--i)*50ms + .15s)}.mpanel a[aria-current]{color:var(--blue)}
+@media(max-width:1100px){#burger{display:inline-flex}#links{display:none}}@media(min-width:1101px){#menu{display:none}}
+/* hero */
+#hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-top:7rem;padding-bottom:4rem;overflow:hidden}
+#gl{position:absolute;inset:0;width:100%;height:100%}
+#hero .in{position:relative;z-index:2;pointer-events:none;max-width:100%}#hero .in>*{pointer-events:auto}
+#hero h1{font-size:clamp(1.15rem,4vw,4.6rem)}
+#hero h1 span{display:block;overflow:hidden;padding:.05em .08em;margin:-.05em -.08em}#hero h1 em{display:block;font-style:normal;padding-bottom:.12em}
+#hero h1 span:nth-child(n+3) em{color:var(--bg);-webkit-text-stroke:max(2px,.06em) #fff;paint-order:stroke fill;letter-spacing:.01em}
+#hero p{max-width:34rem;margin:1.6rem 0;color:#c9cdd5}
+.avail{font-size:.7rem;letter-spacing:.05em;line-height:1.3;display:inline-flex;align-items:center;gap:.6rem;margin-bottom:1.4rem;padding:.4rem .9rem;border:1px solid var(--line);border-radius:99px;background:var(--glass);backdrop-filter:blur(10px);color:#fff;max-width:100%}
+.avail::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:#3b82f6;animation:p 2s infinite}
+@keyframes p{0%{box-shadow:0 0 0 0 #2563EB}70%,100%{box-shadow:0 0 0 10px transparent}}
+.btn{display:inline-block;padding:1rem 1.6rem;border-radius:99px;border:1px solid var(--line);font-weight:700;font-size:.78rem;letter-spacing:.08em;margin:0 .6rem .6rem 0;background:var(--glass);transition:background .3s,transform .3s,border-color .3s;cursor:pointer;color:#fff;font-family:var(--b);text-transform:uppercase}
+.btn.pri{background:var(--blue);border-color:var(--blue)}.btn:hover{transform:translateY(-3px);border-color:#fff}
+/* generic grids (minmax(0,1fr) stops long words from stretching tracks) */
+.pg{padding-top:9rem}
+.about{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2rem;align-items:start}
+.about h2{grid-column:1/10}.about .txt{grid-column:6/13;font-size:clamp(1.05rem,2vw,1.5rem);line-height:1.5}.about .vis{grid-column:1/5;grid-row:2/4;aspect-ratio:1;max-width:100%}.about .tags{grid-column:6/13;display:flex;flex-wrap:wrap;gap:.6rem}
+.tags span{border:1px solid var(--line);padding:.4rem 1rem;border-radius:99px;font-size:.85rem}
+.vis svg,.orbit svg{width:100%;height:100%;display:block}
+@media(max-width:800px){.about>*{grid-column:1/-1!important;grid-row:auto!important}.about .vis{max-width:260px}}
+.ring{transform-box:fill-box;transform-origin:center;animation:spin 24s linear infinite}.ring.r2{animation-duration:36s;animation-direction:reverse}@keyframes spin{to{transform:rotate(360deg)}}
+/* services */
+.svc{list-style:none;margin-top:3rem;border-top:1px solid var(--line)}
+.svc li{display:grid;grid-template-columns:3rem minmax(0,1.2fr) minmax(0,1.4fr) 150px;gap:1.5rem;align-items:center;padding:2rem 0;border-bottom:1px solid var(--line);transition:background .4s,transform .4s}
+.svc li:hover,.svc li:focus-within{background:linear-gradient(90deg,rgba(37,99,235,.14),transparent);transform:translateX(10px)}
+.svc h3{font-size:clamp(1rem,2.4vw,1.8rem)}
+.v{height:90px;position:relative;overflow:hidden;border-radius:8px;background:var(--glass)}.v i{position:absolute;display:block}
+@media(max-width:1000px){.svc li{grid-template-columns:2.2rem minmax(0,1fr)}.svc p,.svc .v{grid-column:2}}
+.v1 i{left:12px;height:6px;background:var(--blue);border-radius:3px;animation:bar 2.4s infinite alternate}.v1 i:nth-child(1){top:16px;width:50%}.v1 i:nth-child(2){top:34px;width:60%;animation-delay:.3s;background:#fff}.v1 i:nth-child(3){top:52px;width:35%;animation-delay:.6s}.v1 i:nth-child(4){top:70px;width:50%;background:#555;animation-delay:.9s}
+@keyframes bar{to{transform:translateX(30px);opacity:.5}}
+.v2 i{inset:-30%;background:conic-gradient(#2563EB,#000,#fff,#000,#2563EB);filter:blur(18px);animation:spin 6s linear infinite}
+.v3 i{border:1px solid #fff;width:40px;height:34px;top:28px;border-radius:4px;transition:transform .5s}.v3 i:nth-child(1){left:20px}.v3 i:nth-child(2){left:66px;border-color:var(--blue);background:rgba(37,99,235,.3)}.v3 i:nth-child(3){left:112px;width:26px}
+.svc li:hover .v3 i:nth-child(1){transform:translateY(-14px)}.svc li:hover .v3 i:nth-child(3){transform:translateY(14px) rotate(8deg)}
+.v4 i{width:18px;height:18px;border-radius:50%;background:#fff;top:42px;animation:bn 1.4s infinite cubic-bezier(.5,0,.5,1) alternate}.v4 i:nth-child(1){left:20px}.v4 i:nth-child(2){left:60px;background:var(--blue);animation-delay:.2s}.v4 i:nth-child(3){left:100px;animation-delay:.4s}
+@keyframes bn{to{transform:translateY(-26px) scaleX(1.3)}}
+.v5 i{top:0;bottom:0;width:2px;background:#fff;animation:sc 2s linear infinite}.v5::before{content:"";position:absolute;inset:14px 0;background:repeating-linear-gradient(90deg,#222 0 14px,#2b2f38 14px 16px)}@keyframes sc{from{left:0}to{left:100%}}
+.v6 i{border-radius:50%;border:1px solid #fff;width:56px;height:56px;top:17px;left:20px;animation:mx 3s infinite alternate ease-in-out}.v6 i:nth-child(2){border-color:var(--blue);animation-direction:alternate-reverse}.v6 i:nth-child(3){opacity:.4}
+@keyframes mx{to{transform:translateX(60px)}}
+/* cards */
+.work{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(1.5rem,3vw,2.5rem) clamp(1rem,2vw,2rem);margin-top:3rem}
+.card{position:relative;display:block;perspective:900px;min-width:0}
+.card:nth-child(1){grid-column:1/8}.card:nth-child(2){grid-column:8/13}.card:nth-child(3){grid-column:1/6}.card:nth-child(4){grid-column:6/13}.card:nth-child(5){grid-column:1/8}.card:nth-child(6){grid-column:8/13}
+@media(max-width:800px){.card:nth-child(n){grid-column:1/-1}}@media(min-width:801px){.card:nth-child(2),.card:nth-child(6){margin-top:4rem}.card:nth-child(4){margin-top:3rem}}
+.prev{aspect-ratio:16/11;border-radius:14px;border:1px solid var(--line);background:var(--bg2);overflow:hidden;position:relative;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s}
+.card .prev{aspect-ratio:16/10}.card{cursor:pointer}
+.prev video{position:absolute;inset:26px 0 0;width:100%;height:calc(100% - 26px);object-fit:cover;object-position:top center;display:block;background:#0a0b0e;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}.card:hover .prev video{transform:scale(1.03)}
+.play{position:absolute;left:50%;top:calc(50% + 13px);width:74px;height:74px;margin:-37px;border-radius:50%;background:rgba(37,99,235,.92);display:grid;place-items:center;z-index:3;opacity:0;transform:scale(.7);transition:opacity .35s,transform .35s;box-shadow:0 10px 40px rgba(37,99,235,.5)}.play::after{content:"";border-left:18px solid #fff;border-block:11px solid transparent;margin-left:5px}
+.card:hover .play,.card:focus-visible .play{opacity:1;transform:none}@media(hover:none){.play{opacity:.9;transform:scale(.75)}}
+.niche{position:absolute;top:36px;left:10px;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);padding:.3rem .6rem;border-radius:99px;z-index:3;color:#fff}
+#vbox{position:fixed;inset:0;z-index:80;background:rgba(6,7,9,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);display:grid;place-items:center;padding:clamp(1rem,4vw,3rem);opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}#vbox.open{opacity:1;visibility:visible;transition:opacity .35s,visibility 0s}
+#vbox video{width:min(100%,1280px);max-height:82vh;border-radius:12px;border:1px solid var(--line);background:#000;box-shadow:0 40px 120px rgba(37,99,235,.25)}
+#vbox .vt{width:min(100%,1280px);display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1rem}#vbox .vt b{font:800 clamp(1rem,2.4vw,1.6rem) var(--d);text-transform:uppercase}
+#vbox .x{background:var(--glass);border:1px solid var(--line);color:#fff;border-radius:99px;padding:.55rem 1.1rem;font:700 .75rem var(--b);cursor:pointer;letter-spacing:.08em;text-transform:uppercase}#vbox .x:hover{border-color:#fff}
+#vbox .vi{display:flex;flex-direction:column;align-items:center;width:100%}
+.card:hover .prev,.card:focus-visible .prev{box-shadow:0 30px 80px rgba(37,99,235,.35)}
+.chrome{height:26px;display:flex;gap:6px;align-items:center;padding:0 12px;background:#0a0b0e;border-bottom:1px solid var(--line)}.chrome s{width:8px;height:8px;border-radius:50%;background:#333}.chrome u{margin-left:auto;font-size:.65rem;color:#666;text-decoration:none}
+.site{position:absolute;inset:26px 0 0;padding:6%;display:flex;flex-direction:column;gap:6%;transition:transform 1.6s ease;overflow:hidden}.tile:hover .site{transform:translateY(-8%)}
+.demo{position:absolute;top:34px;right:10px;font-size:.6rem;letter-spacing:.1em;background:#000a;padding:.2rem .5rem;border-radius:4px;z-index:3}
+.p1{background:#f3efe9;color:#111}.p1 .g{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;flex:1}.p1 .g div{background:linear-gradient(160deg,#ddd,#bbb);border-radius:6px}.p1 .g div:nth-child(2){background:#2563EB}.p1 .g div:nth-child(5){background:#111}.p1 b{font:800 1.1rem var(--d)}
+.p2{background:#0e1118}.p2 .row{display:flex;justify-content:space-between;font-size:.6rem;color:#888}.p2 h4{font:800 clamp(.9rem,2.4vw,1.6rem)/1.1 var(--d);max-width:12ch}.p2 .line{height:1px;background:#2563EB;width:40%}.p2 .bl{flex:1;background:repeating-linear-gradient(135deg,#1a1e28 0 10px,#151822 10px 20px);border-radius:6px}
+.p3{background:#2563EB}.p3 h4{font:800 1.2rem/1.1 var(--d);text-transform:uppercase}.p3 .cta{align-self:flex-start;background:#fff;color:#2563EB;font-weight:800;padding:.5rem 1rem;border-radius:99px;font-size:.65rem}.p3 .f{margin-top:auto;background:#fff3;border-radius:8px;padding:.7rem;font-size:.65rem}
+.p4{background:#000;align-items:center;justify-content:center}.p4 .orb{width:60%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,#2563EB 35%,#000 70%);animation:fl 6s infinite ease-in-out}@keyframes fl{50%{transform:translateY(-6%) scale(1.05)}}.p4 b{position:absolute;bottom:8%;font:800 .9rem var(--d);letter-spacing:.3em}
+.p5{background:#07080b;align-items:center;justify-content:center}.p5::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 40%,rgba(37,99,235,.55) 50%,transparent 60%);animation:sw 4s infinite}@keyframes sw{from{transform:translateX(-100%)}to{transform:translateX(100%)}}.p5 .pl{width:60px;height:60px;border-radius:50%;border:1px solid #fff;display:grid;place-items:center;z-index:1}.p5 .pl::after{content:"";border-left:16px solid #fff;border-block:10px solid transparent;margin-left:4px}.p5 .bar{position:absolute;left:6%;right:6%;bottom:7%;height:3px;background:#333;z-index:1}.p5 .bar::after{content:"";display:block;height:100%;width:38%;background:var(--blue)}
+.p6{background:#d9d9dd;color:#000}.p6 .pos{flex:1;background:#101216;border-radius:6px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:8%}.p6 .pos::before{content:"";position:absolute;width:70%;aspect-ratio:1;right:-15%;top:5%;border-radius:50%;background:conic-gradient(#2563EB,#fff,#2563EB,#000,#2563EB)}.p6 .pos b{position:relative;color:#fff;font:800 1rem/1.2 var(--d)}
+.meta{display:flex;flex-direction:column;align-items:flex-start;gap:.9rem;margin-top:1.1rem}.meta>div{min-width:0}
+.meta h3{font-size:1.2rem;margin-top:.3rem}.meta p{color:var(--mute);font-size:.9rem;max-width:36ch;margin-top:.4rem}.meta .t{font-size:.75rem;color:var(--mute);margin-top:.5rem}
+.meta .go{font-size:.7rem;font-weight:700;letter-spacing:.08em;border-bottom:1px solid var(--blue);padding-bottom:2px}
+/* toolkit */
+.tk{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:3rem;margin-top:3rem;align-items:center}@media(max-width:800px){.tk{grid-template-columns:minmax(0,1fr)}}
+.names{display:flex;flex-wrap:wrap;gap:.3rem 1.2rem}
+.names span{font:800 clamp(1.2rem,3.6vw,2.8rem)/1.2 var(--d);color:var(--bg);-webkit-text-stroke:2px #e4e7ec;paint-order:stroke fill;transition:color .3s,transform .3s;display:inline-block}
+.names span:hover{color:#fff;transform:translateY(-6px) skewX(-6deg)}.names span.b:hover{color:var(--blue);-webkit-text-stroke-color:var(--blue)}
+.orbit{aspect-ratio:1;max-width:440px;margin:auto;width:100%}
+.sub{margin-top:5rem}
+/* lab */
+.labg{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:1.2rem;margin-top:3rem}
+.tile{border:1px solid var(--line);border-radius:14px;background:var(--bg2);overflow:hidden;position:relative;min-height:260px;grid-column:span 6}
+.tile.big{grid-column:1/9;min-height:420px}.tile.s{grid-column:9/13}.tile.w{grid-column:1/13;min-height:200px}
+@media(max-width:800px){.tile,.tile.big,.tile.s,.tile.w{grid-column:1/-1}}
+.tile canvas{width:100%;height:100%;position:absolute;inset:0;display:block}
+.tile .prev{position:absolute;inset:0;border:0;border-radius:0;aspect-ratio:auto}.tile .site{inset:0 0 2.8rem}
+.cap{position:absolute;left:1rem;bottom:1rem;right:1rem;z-index:4;font-size:.75rem;color:var(--mute);pointer-events:none}
+.cube{position:absolute;left:50%;top:50%;width:110px;height:110px;margin:-55px;transform-style:preserve-3d}
+.cube div{position:absolute;inset:0;border:1px solid #fff;background:rgba(37,99,235,.18)}
+.cube div:nth-child(1){transform:translateZ(55px)}.cube div:nth-child(2){transform:rotateY(180deg) translateZ(55px)}.cube div:nth-child(3){transform:rotateY(90deg) translateZ(55px)}.cube div:nth-child(4){transform:rotateY(-90deg) translateZ(55px)}.cube div:nth-child(5){transform:rotateX(90deg) translateZ(55px)}.cube div:nth-child(6){transform:rotateX(-90deg) translateZ(55px)}
+.warp{display:flex;flex-wrap:nowrap;align-items:center;justify-content:center;height:100%;min-height:200px;padding:1rem 1rem 2.5rem}.warp span{font:800 clamp(1.1rem,5.6vw,4.4rem) var(--d);transition:transform .25s,color .25s;display:inline-block}.warp span:hover{transform:translateY(-14px) rotate(-8deg) scale(1.2);color:var(--blue)}
+.ctl{position:absolute;right:1rem;top:1rem;z-index:5}.ctl .btn{padding:.5rem 1rem;margin:0}
+/* process */
+.steps{margin-top:3rem;position:relative;padding-left:2.5rem;max-width:52rem}.steps::before{content:"";position:absolute;left:7px;top:0;bottom:0;width:1px;background:var(--line)}.steps .fill{position:absolute;left:7px;top:0;width:1px;background:var(--blue);height:0}
+.step{position:relative;padding-bottom:3.5rem}.step::before{content:"";position:absolute;left:-2.5rem;top:.5rem;width:15px;height:15px;border-radius:50%;background:var(--bg);border:1px solid var(--blue)}
+.step h3{font-size:clamp(1.3rem,4vw,2.8rem)}.step p{color:var(--mute);margin-top:.8rem;max-width:36ch}.step .n{font-size:.8rem;color:var(--blue);font-weight:700}
+/* contact */
+.cta h2{font-size:clamp(1.4rem,6vw,5.4rem)}.cta h2 span{display:block}.cta h2 span:last-child{color:var(--bg);-webkit-text-stroke:max(2px,.06em) #fff;paint-order:stroke fill;letter-spacing:.01em}
+.cg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4rem;margin-top:3rem}@media(max-width:800px){.cg{grid-template-columns:minmax(0,1fr);gap:3rem}}
+form{display:grid;gap:1.4rem}label{font-size:.75rem;color:var(--mute);letter-spacing:.08em;text-transform:uppercase}
+input,textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line);color:#fff;font:inherit;padding:.7rem 0;border-radius:0;transition:border-color .3s;resize:vertical}input:focus,textarea:focus{outline:0;border-color:var(--blue)}
+.ok{min-height:1.5rem;color:#93b4ff;font-size:.9rem;margin-top:.6rem}.ok.err{color:#ff8a8a}
+.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem}@media(max-width:560px){.row2{grid-template-columns:minmax(0,1fr)}}
+fieldset{border:0;min-width:0}legend{font-size:.75rem;color:var(--mute);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.8rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}.chips label{position:relative;cursor:pointer;text-transform:none;letter-spacing:0;font-size:.85rem;color:#fff}
+.chips input{position:absolute;opacity:0;width:1px;height:1px}.chips span{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:.5rem 1rem;transition:background .25s,border-color .25s}
+.chips label:hover span{border-color:#fff}.chips input:checked+span{background:var(--blue);border-color:var(--blue)}.chips input:focus-visible+span{outline:2px solid var(--blue);outline-offset:3px}
+.opt{text-transform:none;letter-spacing:0;opacity:.7}.hp{position:absolute;left:-9999px}
+input[aria-invalid=true],textarea[aria-invalid=true]{border-color:#ff8a8a}
+.btn[disabled]{opacity:.6;pointer-events:none}
+.links .lab{display:block;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-top:1.2rem}
+.links a.l{display:flex;justify-content:space-between;align-items:center;gap:1rem}.links a.l i{font-style:normal;font-size:.9em;color:var(--blue);transition:transform .3s}.links a.l:hover i{transform:translate(4px,-4px)}
+.links a.l{display:block;font:800 clamp(1.1rem,2.6vw,2rem) var(--d);padding:.6rem 0;border-bottom:1px solid var(--line);transition:padding .3s,color .3s;overflow-wrap:anywhere}.links a.l:hover{padding-left:1rem;color:var(--blue)}.links p{margin-bottom:1rem}
+.mag{display:inline-grid;place-items:center;text-align:center;width:150px;height:150px;border-radius:50%;background:var(--blue);font:800 .75rem var(--d);margin-top:2rem;transition:transform .15s;padding:1rem}
+footer{padding:2rem var(--px);display:flex;justify-content:space-between;color:var(--mute);font-size:.8rem;border-top:1px solid var(--line);flex-wrap:wrap;gap:1rem}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-en="Skip to content">До змісту</a>
+<div id="load" aria-hidden="true"><b>FORMA.WEBS</b><i></i></div>
+<div id="cur" aria-hidden="true"></div>
+<nav aria-label="Primary"><a class="logo" href="#home">Forma<span style="color:var(--blue)">.webs</span></a>
+<div id="links"><a href="#home" data-p="home" data-en="Home">Головна</a><a href="#about" data-p="about" data-en="About">Про мене</a><a href="#projects" data-p="projects" data-en="Projects">Проєкти</a><a href="#lab" data-p="lab" data-en="AI Lab">ШІ-лабораторія</a><a href="#services" data-p="services" data-en="Services">Послуги</a><a href="#contact" data-p="contact" data-en="Contact">Контакти</a></div>
+<div class="lang" role="group" aria-label="Language"><button type="button" data-l="uk">UA</button><button type="button" data-l="en">EN</button></div>
+<button id="burger" type="button" aria-expanded="false" aria-controls="menu"><i class="ic" aria-hidden="true"></i><span class="bm" data-en="Menu">Меню</span><span class="bc" data-en="Close">Закрити</span></button></nav>
+<div id="menu" aria-hidden="true" inert><div class="mpanel" id="mpanel" role="dialog" aria-modal="true"></div></div>
+
+<main id="main">
+<!-- HOME -->
+<div data-page="home">
+<section id="hero">
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="in">
+<div class="avail sm" data-en="Available for select projects">Відкритий до вибіркових проєктів</div>
+<h1><span><em data-en="I don’t just">Я не просто</em></span><span><em data-en="build websites.">створюю сайти.</em></span><span><em data-en="I create digital">Я створюю цифрові</em></span><span><em data-en="experiences.">враження.</em></span></h1>
+<p data-en="Creative development, AI-powered visuals and digital experiences designed to make brands impossible to ignore.">Креативна розробка, візуали на основі ШІ та цифрові враження, після яких бренд неможливо не помітити.</p>
+<a class="btn pri" href="#projects" data-en="Explore my work">Дивитись роботи</a><a class="btn" href="#contact" data-en="Let’s talk">Давайте поговоримо</a>
+</div></section>
+<section><p class="sm" data-en="Selected work">Вибрані роботи</p><h2 data-en="Recent projects">Останні проєкти</h2>
+<p class="mute" style="max-width:36rem;margin-top:1rem" data-en="Screen recordings of live pages: scrolling, animation and interaction exactly as a visitor sees them.">Записи екрана живих сторінок: скрол, анімації та взаємодія саме так, як їх бачить відвідувач.</p>
+<div class="work" id="homeWork"></div><a class="btn" style="margin-top:3rem" href="#projects" data-en="All projects">Усі проєкти</a></section>
+<section class="cta"><h2><span data-en="Have a crazy idea?">Є шалена ідея?</span><span data-en="Let’s make it real.">Утілімо її в життя.</span></h2><a class="mag" href="#contact" data-en="START A PROJECT">ПОЧАТИ ПРОЄКТ</a></section>
+</div>
+
+<!-- ABOUT -->
+<div data-page="about" hidden>
+<section class="pg"><div class="about">
+<h2 data-en="A creative mind. A digital toolkit.">Творчий розум. Цифровий інструментарій.</h2>
+<div class="vis" aria-hidden="true"><svg viewBox="-10 -10 220 220"><g fill="none" stroke="#fff" stroke-opacity=".5"><circle cx="100" cy="100" r="90"/><ellipse class="ring" cx="100" cy="100" rx="90" ry="34"/><ellipse class="ring r2" cx="100" cy="100" rx="34" ry="90" stroke="#2563EB" stroke-opacity="1"/></g><circle cx="100" cy="100" r="8" fill="#2563EB"/></svg></div>
+<div class="txt"><p class="mute" style="font-size:.9rem;margin-bottom:1rem" data-en="A multidisciplinary digital creator at the intersection of design, technology, AI and web development.">Мультидисциплінарний цифровий креатор на перетині дизайну, технологій, ШІ та веброзробки.</p>
+<p data-en="I combine creative thinking, modern web technologies and artificial intelligence to transform ideas into digital experiences. From visually striking websites to AI-generated content, I build things that look different, feel intuitive and work beautifully.">Я поєдную креативне мислення, сучасні вебтехнології та штучний інтелект, щоб перетворювати ідеї на цифрові враження. Від вражаючих сайтів до контенту, створеного ШІ: я роблю речі, які виглядають інакше, відчуваються інтуїтивно й чудово працюють.</p></div>
+<div class="tags"><span data-en="Design">Дизайн</span><span data-en="Technology">Технології</span><span data-en="AI">ШІ</span><span data-en="Web development">Веброзробка</span></div></div>
+<div class="sub"><h2 data-en="Tools are nothing without imagination.">Інструменти ніщо без уяви.</h2>
+<div class="tk"><div class="names"><span class="b">Claude</span><span>ChatGPT</span><span class="b">Midjourney</span><span>Runway</span><span class="b">Kling AI</span><span>Cursor</span><span class="b">GitHub</span><span>HTML</span><span class="b">CSS</span><span>JavaScript</span></div>
+<div class="orbit" role="img" aria-label="AI, design and code converge into the idea"><svg viewBox="-50 -30 500 460" font-family="Unbounded,sans-serif" font-weight="800" fill="#fff" text-anchor="middle"><g fill="none" stroke="#fff" stroke-opacity=".25"><circle cx="200" cy="200" r="150"/><circle cx="200" cy="200" r="90"/></g><g class="ring"><circle cx="200" cy="50" r="5" fill="#2563EB"/><circle cx="330" cy="275" r="5" fill="#2563EB"/><circle cx="70" cy="275" r="5" fill="#2563EB"/></g><g class="ring r2"><circle cx="200" cy="110" r="4"/><circle cx="278" cy="245" r="4"/><circle cx="122" cy="245" r="4"/></g><text x="200" y="28" font-size="14" data-en="AI">ШІ</text><text x="345" y="315" font-size="14" data-en="DESIGN">ДИЗАЙН</text><text x="55" y="315" font-size="14" data-en="CODE">КОД</text><circle cx="200" cy="200" r="40" fill="#2563EB"/><text x="200" y="205" font-size="12" data-en="IDEA">ІДЕЯ</text></svg></div></div></div>
+<div class="sub"><p class="sm" data-en="Process">Процес</p><h2 data-en="From idea to launch.">Від ідеї до запуску.</h2>
+<div class="steps"><div class="fill"></div>
+<div class="step"><span class="n">01</span><h3 data-en="Discover">Дослідження</h3><p data-en="Understanding the idea and defining the direction.">Розуміємо ідею та визначаємо напрям.</p></div>
+<div class="step"><span class="n">02</span><h3 data-en="Concept">Концепція</h3><p data-en="Creating the visual concept and experience.">Створюємо візуальну концепцію та досвід.</p></div>
+<div class="step"><span class="n">03</span><h3 data-en="Create">Створення</h3><p data-en="Designing, developing and integrating AI tools.">Проєктуємо, розробляємо та інтегруємо ШІ-інструменти.</p></div>
+<div class="step"><span class="n">04</span><h3 data-en="Launch">Запуск</h3><p data-en="Testing, optimization and final delivery.">Тестуємо, оптимізуємо та передаємо готовий результат.</p></div></div></div>
+</section></div>
+
+<!-- PROJECTS -->
+<div data-page="projects" hidden><section class="pg"><p class="sm" data-en="Selected work">Вибрані роботи</p><h2 data-en="Websites that move.">Сайти, що живуть і рухаються.</h2>
+<p class="mute" style="max-width:36rem;margin-top:1rem" data-en="Six websites for different niches, from a ski rental to a cosmetologist. Each video is a screen recording of the real page. Click a card to watch it full size.">Шість сайтів для різних ніш, від прокату лиж до косметолога. Кожне відео — запис екрана справжньої сторінки. Натисніть на картку, щоб переглянути на весь екран.</p>
+<div class="work" id="allWork"></div></section></div>
+
+<!-- LAB -->
+<div data-page="lab" hidden><section class="pg"><p class="sm" data-en="AI visuals, video and creative code">ШІ-візуали, відео та креативний код</p><h2 data-en="The AI lab.">ШІ-лабораторія.</h2>
+<div class="labg">
+<div class="tile big"><canvas id="pt" role="img" aria-label="Interactive particle typography. Move the pointer to scatter letters."></canvas><div class="ctl"><button class="btn" id="boom" type="button" data-en="Explode">Вибух</button></div><span class="cap" data-en="Interactive: creative coding and generative type. Move your pointer.">Інтерактив: креативний код і генеративна типографіка. Рухайте курсором.</span></div>
+<div class="tile s" id="cubeT"><div class="cube" id="cube" aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div></div><span class="cap" data-en="Interactive 3D object. Follows your pointer.">Інтерактивний 3D-об’єкт. Слідує за курсором.</span></div>
+<div class="tile w"><div class="warp" id="warp"></div><span class="cap" data-en="Animated typography. Hover the letters.">Анімована типографіка. Наведіть на літери.</span></div>
+<div class="tile"><div class="prev"><div class="site p4"><div class="orb"></div><b>FORM 01</b></div></div><span class="cap" data-en="Concept: generative AI visual">Концепт: генеративний ШІ-візуал</span></div>
+<div class="tile"><div class="prev"><div class="site p5"><div class="pl"></div><div class="bar"></div></div></div><span class="cap" data-en="Concept: AI cinematic video frame">Концепт: кадр кінематографічного ШІ-відео</span></div>
+</div></section></div>
+
+<!-- SERVICES -->
+<div data-page="services" hidden><section class="pg"><p class="sm" data-en="What I do">Що я роблю</p><h2 data-en="Six disciplines. One vision.">Шість напрямів. Одне бачення.</h2><ul class="svc" id="svc"></ul>
+<a class="btn pri" style="margin-top:3rem" href="#contact" data-en="Discuss a project">Обговорити проєкт</a></section></div>
+
+<!-- CONTACT -->
+<div data-page="contact" hidden><section class="pg cta"><h2><span data-en="Have a crazy idea?">Є шалена ідея?</span><span data-en="Let’s make it real.">Утілімо її в життя.</span></h2>
+<div class="cg"><form id="f" action="https://formspree.io/f/xzerwyjy" method="POST" novalidate>
+<p class="mute" data-en="Tell me about your project. I usually reply within a day.">Розкажіть про свій проєкт. Зазвичай відповідаю протягом доби.</p>
+<div class="row2"><div><label for="n" data-en="Name">Імʼя</label><input id="n" name="name" autocomplete="name" required data-fs-field></div>
+<div><label for="e" data-en="Email">Електронна пошта</label><input id="e" name="email" type="email" autocomplete="email" required data-fs-field></div></div>
+<div><label for="tg"><span data-en="Telegram or phone">Telegram або телефон</span> <span class="opt" data-en="(optional)">(необовʼязково)</span></label><input id="tg" name="contact" autocomplete="tel"></div>
+<fieldset><legend data-en="What do you need?">Що потрібно?</legend><div class="chips">
+<label><input type="radio" name="type" value="Лендинг" checked><span data-en="Landing page">Лендинг</span></label>
+<label><input type="radio" name="type" value="Бізнес-сайт"><span data-en="Business website">Бізнес-сайт</span></label>
+<label><input type="radio" name="type" value="Інтернет-магазин"><span data-en="Online store">Інтернет-магазин</span></label>
+<label><input type="radio" name="type" value="Редизайн"><span data-en="Redesign">Редизайн</span></label>
+<label><input type="radio" name="type" value="Інше"><span data-en="Other">Інше</span></label></div></fieldset>
+<fieldset><legend data-en="Budget">Бюджет</legend><div class="chips">
+<label><input type="radio" name="budget" value="до $300"><span data-en="up to $300">до $300</span></label>
+<label><input type="radio" name="budget" value="$300–700"><span>$300–700</span></label>
+<label><input type="radio" name="budget" value="$700+"><span>$700+</span></label>
+<label><input type="radio" name="budget" value="Не знаю" checked><span data-en="Not sure yet">Ще не знаю</span></label></div></fieldset>
+<div><label for="msg" data-en="About the project">Про проєкт</label><textarea id="msg" name="message" rows="4" required data-fs-field></textarea></div>
+<input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div><button class="btn pri" type="submit" id="send" data-en="Send request">Надіслати заявку</button><div class="ok" id="ok" role="status" aria-live="polite"></div></div></form>
+<div class="links"><p class="mute" data-en="Prefer to message directly? Write wherever is convenient.">Зручніше написати напряму? Пишіть, де вам зручно.</p>
+<span class="lab">Telegram</span><a class="l" href="https://t.me/se6nia" rel="noopener" target="_blank">@se6nia<i aria-hidden="true">↗</i></a>
+<span class="lab" data-en="Email">Пошта</span><a class="l" href="mailto:se6nia@gmail.com">se6nia@gmail.com<i aria-hidden="true">↗</i></a>
+<span class="lab">Instagram</span><a class="l" href="https://instagram.com/forma.webs" rel="noopener" target="_blank">@forma.webs<i aria-hidden="true">↗</i></a>
+<a class="mag" href="https://t.me/se6nia" rel="noopener" target="_blank" id="mag" data-en="WRITE IN TELEGRAM">НАПИСАТИ В TELEGRAM</a></div></div></section></div>
+</main>
+<div id="vbox" role="dialog" aria-modal="true" aria-label="Video" aria-hidden="true" inert><div class="vi"><div class="vt"><b id="vname"></b><button class="x" type="button" id="vclose" data-en="Close">Закрити</button></div><video id="vplay" controls playsinline></video></div></div>
+<footer><span>© 2026 Forma.webs</span><span data-en="Websites designed and built by Forma.webs.">Сайти, спроєктовані та розроблені Forma.webs.</span></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches,G=typeof gsap!=='undefined',ST=G&&typeof ScrollTrigger!=='undefined';
+if(ST)gsap.registerPlugin(ScrollTrigger);
+let mx=0,my=0,nx=0,ny=0,lang='uk',lenis=null;
+const store={get:()=>{try{return localStorage.getItem('lang')}catch(_){return null}},set:v=>{try{localStorage.setItem('lang',v)}catch(_){}}};
+addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY;nx=e.clientX/innerWidth*2-1;ny=e.clientY/innerHeight*2-1});
+/* content generated from data (same data-en swap system as the static markup) */
+const g6='<div></div>'.repeat(6);
+const PR=[
+{n:'TECHLAB',v:'techlab',c:['Сервіс ремонту смартфонів','Smartphone repair service'],d:['Темний сайт із 3D-смартфоном, який під час скролу розбирається на шари: скло, дисплей, плата, акумулятор. Далі — список ремонтів, trade-in і процес роботи.','A dark site with a 3D smartphone that comes apart layer by layer as you scroll: glass, display, logic board, battery. Then repair services, trade-in and the repair process.'],t:['3D-скрол · Послуги · Trade-in · Процес','3D scroll · Services · Trade-in · Process']},
+{n:'Anna Voroniuk',v:'anna-voroniuk',c:['Сайт косметолога','Cosmetologist website'],d:['Особистий сайт у тихій бежевій гамі з редакційною типографікою: про спеціалістку, напрями процедур, прайс, результати до/після та запис.','A personal site in calm beige with editorial typography: about the specialist, treatment areas, price list, before/after results and booking.'],t:['Про мене · Процедури · Прайс · Результати','About · Treatments · Prices · Results']},
+{n:'SeeSki',v:'seeski',c:['Прокат лиж і сноубордів','Ski & snowboard rental'],d:['Сайт мережі прокату в Карпатах: прайс прокату та продажу, акція «5 Bro» для компаній, точки прокату з QR-кодами, магазин спорядження й FAQ.','A site for a Carpathian rental chain: rental and sale prices, a “5 Bro” group deal, rental points with QR codes, a gear shop and FAQ.'],t:['Прайс · Акції · Точки прокату · Магазин','Prices · Deals · Locations · Shop']},
+{n:'ALPHA Auto Service',v:'alpha',c:['Автосервіс','Car service'],d:['Багатосторінковий сайт автосервісу в чорно-червоній гамі з калькулятором: обираєш марку, модель і потрібні роботи, а вартість рахується одразу.','A multi-page car service site in black and red with a cost calculator: pick the make, model and jobs and the price adds up instantly.'],t:['Послуги · Про сервіс · Калькулятор · Контакти','Services · About · Calculator · Contact']},
+{n:'Apple Vinny',v:'apple-vinny',c:['Сервісний центр Apple','Apple service centre'],d:['Світлий дружній сайт сервісу з маскотом: ремонт iPhone, iPad і MacBook, trade-in та кастомізація джойстиків PlayStation, кроки ремонту, відгуки й FAQ.','A light, friendly service site with a mascot: iPhone, iPad and MacBook repair, trade-in and custom PlayStation controllers, repair steps, reviews and FAQ.'],t:['Ремонт · Trade-in · Джойстики · Відгуки','Repair · Trade-in · Controllers · Reviews']},
+{n:'TON FORM',v:'ton-form',c:['Студія тонування авто','Car window tinting studio'],d:['Лендинг студії тонування: послуги, тарифи з перемикачем типу плівки, блок до/після, відгуки, FAQ і форма запису з картою.','A tinting studio landing page: services, prices with a film-type switch, before/after, reviews, FAQ and a booking form with a map.'],t:['Послуги · Тарифи · До/після · Запис','Services · Prices · Before/after · Booking']}];
+const card=p=>`<a class="card" href="video/${p.v}.mp4" data-v="${p.v}" data-n="${p.n}"><div class="prev vid"><div class="chrome"><s></s><s></s><s></s><u>${p.n.toLowerCase()}</u></div><video src="video/${p.v}.mp4" poster="video/${p.v}.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="play" aria-hidden="true"></span></div><div class="meta"><div><span class="sm" data-en="${p.c[1]}">${p.c[0]}</span><h3>${p.n}</h3><p data-en="${p.d[1]}">${p.d[0]}</p><div class="t" data-en="${p.t[1]}">${p.t[0]}</div></div><span class="go" data-en="WATCH VIDEO">ДИВИТИСЬ ВІДЕО</span></div></a>`;
+$('#homeWork').innerHTML=PR.slice(0,3).map(card).join('');$('#allWork').innerHTML=PR.map(card).join('');
+const SV=[['Веб-розробка','Web development','Преміальні лендинги, бізнес-сайти, інтернет-магазини та авторські цифрові рішення.','High-end landing pages, business websites, e-commerce platforms and custom digital experiences.',4],['ШІ-контент','AI creation','Зображення, ідеї та візуальні історії, створені за допомогою ШІ, і експериментальний контент.','AI-generated images, creative concepts, visual storytelling and experimental content.',1],['UI/UX-дизайн','UI/UX design','Сучасні інтерфейси, сценарії користувача, інтерактивні прототипи та дизайн-системи.','Modern interfaces, user journeys, interactive prototypes and design systems.',3],['Моушн і анімація','Motion & animation','Анімація сайтів, сторітелінг під час прокручування, інтерактивні елементи та моушн-дизайн.','Website animations, scroll-based storytelling, interactive elements and motion design.',3],['ШІ-відео','AI video production','Кінематографічні відео, короткі формати та візуальний сторітелінг.','Cinematic AI-generated videos, short-form content and visual storytelling.',1],['Креативна дирекція','Creative direction','Візуальні ідентичності, концепції, арт-дирекція та цифровий брендинг.','Visual identities, creative concepts, art direction and digital brand experiences.',3]];
+$('#svc').innerHTML=SV.map((s,i)=>`<li tabindex="0"><span class="mute">0${i+1}</span><h3 data-en="${s[1].replace('&','&amp;')}">${s[0]}</h3><p class="mute" data-en="${s[3]}">${s[2]}</p><div class="v v${i+1}" aria-hidden="true">${'<i></i>'.repeat(s[4])}</div></li>`).join('');
+/* language */
+const TT={home:['Forma.webs — креативна веброзробка та цифрові враження','Forma.webs — Creative Web Development & Digital Experiences'],about:['Про мене','About'],projects:['Проєкти','Projects'],lab:['ШІ-лабораторія','AI Lab'],services:['Послуги','Services'],contact:['Контакти','Contact']};
+const WORDS={uk:'ВИБУХ',en:'BLAST'},W2={uk:'ЕКСПЕРИМЕНТ',en:'EXPERIMENT'};let WORD=WORDS.uk;
+const m=(u,e)=>lang==='en'?e:u;
+let page='home';
+function setLang(l){lang=l;document.documentElement.lang=l;store.set(l);
+ $$('[data-en]').forEach(el=>{if(el._u===undefined)el._u=el.textContent;el.textContent=l==='en'?el.dataset.en:el._u});
+ $$('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===l));
+ $('#warp').innerHTML=[...W2[l]].map(c=>`<span>${c}</span>`).join('');WORD=WORDS[l];mp.setAttribute('aria-label',m('Меню','Menu'));
+ $('#boom').textContent=boomOn?m('Відновити','Reform'):m('Вибух','Explode');
+ document.title=TT[page][l==='en'?1:0];
+ $('meta[name=description]').content=m('Портфоліо креативного розробника: веброзробка, ШІ-візуали, моушн і цифрові враження.','Portfolio of an AI creative developer: web development, AI visuals, motion and digital experiences.');
+ dispatchEvent(new Event('resize'))}
+$$('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.l)));
+/* cursor, burger */
+const cur=$('#cur');let cx=0,cy=0;(function t(){cx+=(mx-cx)*.2;cy+=(my-cy)*.2;cur.style.transform=`translate(${cx}px,${cy}px)`;requestAnimationFrame(t)})();
+document.addEventListener('pointerover',e=>cur.classList.toggle('big',!!e.target.closest('a,button,.svc li,input,textarea,.chips label')));
+const bg=$('#burger'),mn=$('#menu'),mp=$('#mpanel');let menuOpen=false;
+mp.innerHTML=$('#links').innerHTML;$$('#mpanel a').forEach((a,i)=>a.style.setProperty('--i',i));
+function setMenu(o,refocus){if(o===menuOpen)return;menuOpen=o;mn.classList.toggle('open',o);mn.inert=!o;mn.setAttribute('aria-hidden',!o);bg.setAttribute('aria-expanded',o);document.documentElement.classList.toggle('lock',o);$('main').inert=o;$('footer').inert=o;if(lenis)o?lenis.stop():lenis.start();if(o)mp.querySelector('a').focus({preventScroll:true});else if(refocus)bg.focus({preventScroll:true})}
+bg.addEventListener('click',()=>setMenu(!menuOpen,true));
+mn.addEventListener('click',e=>{if(e.target===mn||e.target.closest('a'))setMenu(false)});
+$('nav').addEventListener('click',e=>{if(menuOpen&&e.target.closest('.logo'))setMenu(false)});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&menuOpen)setMenu(false,true)});
+matchMedia('(min-width:1101px)').addEventListener('change',e=>{if(e.matches)setMenu(false)});
+/* smooth scroll */
+if(typeof Lenis!=='undefined'&&!RM){lenis=new Lenis({lerp:.09});if(ST){lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0)}else(function r(t){lenis.raf(t);requestAnimationFrame(r)})(0)}
+/* router: one hash per page. Language is stored, so switching it keeps the same page. */
+const PG=['home','about','projects','lab','services','contact'];
+let ctx=null;function fx(){if(ctx){ctx.revert();ctx=null}if(!ST||RM)return;const pg=$(`[data-page=${page}]`);ctx=gsap.context(()=>{
+ pg.querySelectorAll('h2').forEach(h=>gsap.from(h,{y:40,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:h,start:'top 90%'}}));
+ pg.querySelectorAll('.card .prev').forEach(p=>gsap.from(p,{clipPath:'inset(100% 0 0 0)',duration:1.2,ease:'power4.out',scrollTrigger:{trigger:p,start:'top 90%'},onComplete:()=>p.style.clipPath=''}));
+ pg.querySelectorAll('.step').forEach(s=>gsap.from(s,{opacity:0,x:-40,duration:.9,scrollTrigger:{trigger:s,start:'top 85%'}}));
+ const f=pg.querySelector('.steps .fill');if(f)gsap.to(f,{height:'100%',ease:'none',scrollTrigger:{trigger:'.steps',start:'top 70%',end:'bottom 70%',scrub:true}});
+ },pg);ScrollTrigger.refresh()}
+function route(first){let h=location.hash.slice(1);if(!PG.includes(h))h='home';page=h;
+ $$('[data-page]').forEach(s=>s.hidden=s.dataset.page!==h);
+ $$('[data-p]').forEach(a=>a.dataset.p===h?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));
+ setMenu(false);
+ document.title=TT[h][lang==='en'?1:0];
+ if(lenis)lenis.scrollTo(0,{immediate:true});else scrollTo(0,0);
+ dispatchEvent(new Event('resize'));fx();
+ if(G&&!first&&!RM){gsap.killTweensOf('main');gsap.fromTo('main',{opacity:0,y:24},{opacity:1,y:0,duration:.7,ease:'power3.out',clearProps:'transform,opacity'})}
+ if(G&&h==='home'&&!first&&!RM){gsap.killTweensOf('#hero h1 em');gsap.from('#hero h1 em',{yPercent:110,duration:1,stagger:.1,ease:'power4.out',clearProps:'transform'})}}
+addEventListener('hashchange',()=>route(false));
+/* card tilt + magnetic CTA */
+document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card');if(c){const p=c.querySelector('.prev'),r=c.getBoundingClientRect();p.style.transform=`rotateY(${((e.clientX-r.left)/r.width-.5)*8}deg) rotateX(${-((e.clientY-r.top)/r.height-.5)*8}deg) scale(1.02)`}
+ $$('.mag').forEach(k=>{if(!k.offsetParent)return;const r=k.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2);k.style.transform=Math.hypot(dx,dy)<160?`translate(${dx*.25}px,${dy*.25}px)`:''})});
+document.addEventListener('pointerout',e=>{const c=e.target.closest&&e.target.closest('.card');if(c&&!c.contains(e.relatedTarget))c.querySelector('.prev').style.transform=''});
+/* project videos: play only while visible */
+const vio=window.IntersectionObserver?new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting&&!RM){v.preload='auto';v.play().catch(()=>{})}else v.pause()}),{threshold:.25}):null;
+$$('.card video').forEach(v=>vio?vio.observe(v):v.preload='metadata');
+const vb=$('#vbox'),vp=$('#vplay');let vLast=null;
+function vOpen(c){vLast=c;vp.src=c.getAttribute('href');vp.poster=`video/${c.dataset.v}.jpg`;$('#vname').textContent=c.dataset.n;vb.classList.add('open');vb.inert=false;vb.setAttribute('aria-hidden','false');document.documentElement.classList.add('lock');if(lenis)lenis.stop();$('#vclose').focus({preventScroll:true});vp.play().catch(()=>{})}
+function vClose(){if(!vb.classList.contains('open'))return;vp.pause();vp.removeAttribute('src');vp.load();vb.classList.remove('open');vb.inert=true;vb.setAttribute('aria-hidden','true');document.documentElement.classList.remove('lock');if(lenis)lenis.start();if(vLast)vLast.focus({preventScroll:true})}
+document.addEventListener('click',e=>{const c=e.target.closest('.card[data-v]');if(c){e.preventDefault();vOpen(c)}});
+$('#vclose').addEventListener('click',vClose);vb.addEventListener('click',e=>{if(e.target===vb||e.target.classList.contains('vi'))vClose()});
+addEventListener('keydown',e=>{if(e.key==='Escape')vClose()});addEventListener('hashchange',vClose);
+/* hero 3D */
+(function(){const cv=$('#gl');if(typeof THREE==='undefined')return;let R;try{R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true})}catch(e){return}
+ R.setPixelRatio(Math.min(devicePixelRatio,2));const S=new THREE.Scene(),C=new THREE.PerspectiveCamera(45,1,.1,100);C.position.z=7;const grp=new THREE.Group();S.add(grp);
+ const knot=new THREE.Mesh(new THREE.TorusKnotGeometry(1.3,.38,220,32),new THREE.MeshPhysicalMaterial({color:0x1a1d24,metalness:.9,roughness:.15,clearcoat:1,clearcoatRoughness:.1}));grp.add(knot);
+ const wire=new THREE.Mesh(new THREE.TorusKnotGeometry(1.45,.45,120,16),new THREE.MeshBasicMaterial({color:0x2563EB,wireframe:true,transparent:true,opacity:.22}));grp.add(wire);
+ S.add(new THREE.AmbientLight(0x667799,.6));const l1=new THREE.PointLight(0x2563EB,60,30);l1.position.set(4,3,4);S.add(l1);const l2=new THREE.PointLight(0xffffff,40,30);l2.position.set(-4,-2,5);S.add(l2);
+ const N=700,pos=new Float32Array(N*3);for(let i=0;i<N*3;i++)pos[i]=(Math.random()-.5)*16;const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+ const pts=new THREE.Points(pg,new THREE.PointsMaterial({size:.025,color:0xffffff,transparent:true,opacity:.6}));S.add(pts);
+ function size(){const w=cv.clientWidth,h=cv.clientHeight;if(!w||!h)return;R.setSize(w,h,false);C.aspect=w/h;C.updateProjectionMatrix();grp.position.x=w>800?2.6:0;grp.position.y=w>800?0:1.6;grp.scale.setScalar(w>800?.9:.7)}
+ addEventListener('resize',size);size();let vis=true;new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(cv);const clk=new THREE.Clock();
+ (function loop(){requestAnimationFrame(loop);if(!vis||page!=='home')return;const t=clk.getElapsedTime();knot.rotation.x=wire.rotation.x=t*.15+ny*.5;knot.rotation.y=wire.rotation.y=t*.2+nx*.7;pts.rotation.y=t*.02+nx*.1;l1.position.x=nx*6;l1.position.y=-ny*4;R.render(S,C)})()})();
+/* lab: particle type */
+let boomOn=false;
+(function(){const cv=$('#pt'),x=cv.getContext('2d');let P=[],W=0,H=0,last='',S=6;
+ function build(){const r=cv.getBoundingClientRect();if(!r.width)return;const d=Math.min(devicePixelRatio,2);const nw=Math.round(r.width*d),nh=Math.round(r.height*d);if(W===nw&&H===nh&&last===WORD)return;last=WORD;W=cv.width=nw;H=cv.height=nh;
+  const o=document.createElement('canvas');o.width=W;o.height=H;const c=o.getContext('2d');c.fillStyle='#fff';const F='Unbounded,Arial Black,sans-serif';c.font=`800 100px ${F}`;const mt=c.measureText(WORD),fh=(mt.actualBoundingBoxAscent+mt.actualBoundingBoxDescent)||72;const fs=Math.min(100*W*.86/mt.width,100*H*.6/fh);c.font=`800 ${fs}px ${F}`;c.textAlign='center';c.textBaseline='alphabetic';const m2=c.measureText(WORD);c.fillText(WORD,W/2,H/2+(m2.actualBoundingBoxAscent-m2.actualBoundingBoxDescent)/2);
+  const g=c.getImageData(0,0,W,H).data,s=Math.round(Math.max(4,W/d/150)*d);S=s;P=[];for(let j=0;j<H;j+=s)for(let i=0;i<W;i+=s)if(g[(j*W+i)*4+3]>128)P.push({x:Math.random()*W,y:Math.random()*H,hx:i,hy:j,vx:0,vy:0,b:Math.random()<.18})}
+ const rb=()=>{(document.fonts?document.fonts.load('800 100px Unbounded',WORD).catch(()=>0):Promise.resolve()).then(build)};addEventListener('resize',rb);if(window.ResizeObserver)new ResizeObserver(rb).observe(cv);
+ let px=-999,py=-999;cv.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect(),d=W/r.width;px=(e.clientX-r.left)*d;py=(e.clientY-r.top)*d});cv.addEventListener('pointerleave',()=>px=-999);
+ $('#boom').addEventListener('click',()=>{boomOn=!boomOn;$('#boom').textContent=boomOn?m('Відновити','Reform'):m('Вибух','Explode');if(boomOn)P.forEach(p=>{const a=Math.random()*6.28,v=Math.random()*14+4;p.vx=Math.cos(a)*v;p.vy=Math.sin(a)*v})});
+ (function f(){requestAnimationFrame(f);if(page!=='lab'||!W)return;x.clearRect(0,0,W,H);const R=W/7,z=Math.max(2,Math.round(S*.62));
+  for(const p of P){if(!boomOn){p.vx+=(p.hx-p.x)*.05;p.vy+=(p.hy-p.y)*.05}const dx=p.x-px,dy=p.y-py,d=Math.hypot(dx,dy);if(d<R&&d>0){const k=(R-d)/R*3;p.vx+=dx/d*k;p.vy+=dy/d*k}
+   p.vx*=boomOn?.985:.88;p.vy*=boomOn?.985:.88;p.x+=p.vx;p.y+=p.vy;if(boomOn){if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1}x.fillStyle=p.b?'#2563EB':'#fff';x.fillRect(p.x,p.y,z,z)}})()})();
+/* lab: CSS cube */
+(function(){const t=$('#cubeT'),c=$('#cube');let ry=30,rx=-20,ty=30,tx=-20;t.addEventListener('pointermove',e=>{const r=t.getBoundingClientRect();ty=((e.clientX-r.left)/r.width-.5)*360;tx=-((e.clientY-r.top)/r.height-.5)*360});
+ (function f(){requestAnimationFrame(f);if(page!=='lab')return;if(!RM)ty+=.25;ry+=(ty-ry)*.08;rx+=(tx-rx)*.08;c.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`})()})();
+/* contact form → Formspree (AJAX, stays on the page) */
+const FORM=$('#f'),ACTION=FORM.action,ok=$('#ok'),send=$('#send');
+const say=(t,bad)=>{ok.textContent=t;ok.classList.toggle('err',!!bad)};
+FORM.addEventListener('input',e=>e.target.removeAttribute('aria-invalid'));
+FORM.addEventListener('submit',async e=>{e.preventDefault();
+ const n=$('#n'),em=$('#e'),ms=$('#msg');let bad=null;
+ [[n,!n.value.trim()],[em,!/^\S+@\S+\.\S+$/.test(em.value.trim())],[ms,!ms.value.trim()]].forEach(([el,b])=>{el.toggleAttribute('aria-invalid',b);if(b)el.setAttribute('aria-invalid','true');if(b&&!bad)bad=el});
+ if(bad){bad.focus();say(m('Вкажіть імʼя, дійсну пошту та кілька слів про проєкт.','Add your name, a valid email and a few words about the project.'),1);return}
+ const fd=new FormData(FORM);fd.append('_subject',m('Нова заявка з сайту Forma.webs — ','New request from Forma.webs — ')+n.value.trim());fd.append('_language',lang);
+ send.disabled=true;say(m('Надсилаємо…','Sending…'));
+ try{const r=await fetch(ACTION,{method:'POST',body:fd,headers:{Accept:'application/json'}});
+  if(r.ok){FORM.reset();say(m('Дякую! Заявку отримано, я звʼяжуся з вами найближчим часом.','Thank you! Request received, I will get back to you soon.'))}
+  else{const j=await r.json().catch(()=>({}));const er=j.errors&&j.errors.map(x=>x.message).join(', ');say((er?er+'. ':'')+m('Не вдалося надіслати. Напишіть у Telegram @se6nia або на se6nia@gmail.com.','Sending failed. Message @se6nia on Telegram or se6nia@gmail.com.'),1)}}
+ catch(_){say(m('Немає звʼязку. Напишіть у Telegram @se6nia або на se6nia@gmail.com.','No connection. Message @se6nia on Telegram or se6nia@gmail.com.'),1)}
+ finally{send.disabled=false}});
+/* start: Ukrainian by default, remembered choice afterwards */
+const saved=store.get();setLang(saved==='en'?'en':'uk');route(true);
+function intro(){const l=$('#load');if(!G||RM){l.remove();return}gsap.timeline().to('#load i',{width:'100%',duration:1,ease:'power2.inOut'}).to(l,{yPercent:-100,duration:.8,ease:'power4.inOut'}).add(()=>l.remove()).from('#hero h1 em',{yPercent:110,duration:1,stagger:.1,ease:'power4.out',clearProps:'transform'},'-=.3')}
+addEventListener('load',intro);setTimeout(()=>{const l=$('#load');if(l&&!G)l.remove()},3000);
+})();
+</script>
+</body>
+</html>
